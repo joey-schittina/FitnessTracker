@@ -1,0 +1,11 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar",
+            "n:\\__pycache__\\mysql-connector-java-8.0.27\\mysql-connector-java-8.0.27.jar"
+        ],
+        "exclude": [
+            "c:\\Users\\joeys\\Downloads\\mysql-connector.jar"
+        ]
+    }
+}
