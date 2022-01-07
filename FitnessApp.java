@@ -23,15 +23,7 @@
         static Color myBlue = new Color(0,100,200);
 
         public static void main(String[] args){
-            try{    
-                Connection con=DriverManager.getConnection(  
-                "jdbc:mysql://localhost:3306/fitness_app","root","Slapshot1515");  
-                Statement stmt=con.createStatement();  
-                ResultSet rs=stmt.executeQuery("select * from meals");  
-                while(rs.next())  
-                System.out.println(rs.getDate(1)+rs.getString(2)+rs.getString(3));  
-                con.close();  
-                }catch(Exception e){ System.out.println(e);}
+
 
             JFrame logFrame = new JFrame();
             logFrame.setTitle("PirateJoe13's Fitness Tracker");
@@ -90,7 +82,6 @@
 
                     JFrame mainFrame = new JFrame();
                     mainFrame.setTitle("PirateJoe13's Fitness Tracker");
-                    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     mainFrame.setResizable(false);
                     mainFrame.setLayout(null);
                     mainFrame.setSize(500,600);
@@ -121,6 +112,64 @@
 
                     mainFrame.add(mainPanel);
                     mainFrame.setVisible(true);
+
+                    newInfo.addActionListener(new ActionListener() {
+                
+                        public void actionPerformed(ActionEvent e) {
+                            JFrame nutFrame = new JFrame();
+                            nutFrame.setTitle("PirateJoe13's Fitness Tracker");
+                            nutFrame.setResizable(false);
+                            nutFrame.setLayout(null);
+                            nutFrame.setSize(500,600);
+                                
+                            JPanel nutPanel = new JPanel();
+                            nutPanel.setBackground(myBlue);
+                            nutPanel.setBounds(0,0,500,600);
+                            nutPanel.setLayout(null);
+
+                            JLabel guide = new JLabel("Enter New Food Name and Calories");
+                            guide.setBounds(50,100,400,50);
+                            guide.setHorizontalAlignment(JLabel.CENTER);
+                            guide.setFont(new Font("Comic Sans", Font.ROMAN_BASELINE,20));
+                            guide.setForeground(Color.white);
+
+                            JTextField name = new JTextField("Food Name");
+                            JTextField cals = new JTextField("Calories");
+                            JButton enter = new JButton("Submit");
+
+                            enter.setBounds(200,300,100,30);
+                            name.setBounds(100,250,200,30);
+                            cals.setBounds(325,250,100,30);
+                            
+                            nutPanel.add(enter);
+                            nutPanel.add(name);
+                            nutPanel.add(cals);
+                            nutPanel.add(guide);
+
+                            enter.addActionListener(new ActionListener() {
+                
+                                public void actionPerformed(ActionEvent e) {
+                                    String nameString = name.getText();
+                                    String calsInt = cals.getText();
+
+                                    try{    
+                                        Connection con=DriverManager.getConnection(  
+                                        "jdbc:mysql://localhost:3306/fitness_app","root","Slapshot1515");  
+                                        Statement stmt=con.createStatement(); 
+                                        int result = stmt.executeUpdate("insert into foods values(\""+nameString+"\", "+calsInt+")");
+                                        con.close();  
+                                        }catch(Exception e2){ System.out.println(e);}
+                                    }
+                                });
+
+
+
+                            nutFrame.add(nutPanel);
+                            nutFrame.setVisible(true);
+
+                        }
+                    });
+
 
                     
                     
